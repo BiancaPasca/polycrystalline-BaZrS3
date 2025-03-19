@@ -16,7 +16,8 @@ In this work, we use an established protocol for training the potential starting
 training dataset that is then iteratively expanded using a potential fitted on the growing dataset (in this case, GAP-RSS). "Domain-specific" structures, such as
 high-temperature snapshots obtained from ML-driven MD, as well as crystalline–amorphous interfaces were further added to ensure that the training dataset spans the
 relevant chemical space.
-To visualise the composition of the dataset [interactively](http://127.0.0.1:43625), please see the [Jupyter Notebook in the dataset directory](https://github.com/BiancaPasca/polycrystalline-BaZrS3/blob/main/dataset/UMAP-visualise.ipynb).
+To [visualise the composition of the dataset interactively]([url](https://jupyter.org/try-jupyter/notebooks/?path=UMAP-visualise.ipynb)), please see the Jupyter Notebook in the [dataset directory]([url](https://github.com/BiancaPasca/polycrystalline-BaZrS3/blob/main/dataset/UMAP-visualise.ipynb)). 
+
 
 ## Bespoke potential for polycrystalline BaZrS3
 
@@ -25,4 +26,3 @@ First, the MLIP can be used simulate the amorphous phase, corresponding to precu
 The potential can also be used in the quantitative study of grain boundaries, which need to be accurately described so that the model can be applied to polycrystalline samples. 
 Given that both of these are available, the model proves to additionally be useful for simulating structures with different grain sizes, providing a direct connection to experimental scattering data,
 as shown in the publication.
-
