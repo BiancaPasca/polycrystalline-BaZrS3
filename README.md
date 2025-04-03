@@ -7,8 +7,6 @@ This repository provides access to the trained ACE models, the dataset used for 
 
 ## Dataset construction and fitting protocol 
 
-## <img width="1068" alt="overview_plot" src="https://github.com/user-attachments/assets/444d4e67-3d67-4f12-8b6f-d691937cc1c5" />
-
 The training dataset is constructed using an established protocol based on de novo structures, using an initial Random Structure Search (RSS) training dataset that is then iteratively expanded using a potential fitted on the growing dataset (in this case, GAP-RSS). "Domain-specific" structures, such as crystalline–amorphous interfaces or high-temperature structures are additionally included  to ensure that the training dataset spans the relevant chemical space. To visualise the composition of the dataset interactively, please see the Jupyter Notebook in the [dataset directory](https://github.com/BiancaPasca/polycrystalline-BaZrS3/blob/main/dataset/UMAP-visualise.ipynb).
 
 
