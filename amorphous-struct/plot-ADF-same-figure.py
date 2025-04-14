@@ -82,11 +82,11 @@ plt.rcParams['mathtext.it'] = 'Arial:italic'
 plt.rcParams['mathtext.bf'] = 'Arial:bold'
 
 
-plt.xlabel('Bond Angle (°)', fontsize=22)
+plt.xlabel('Bond Angle (°)')
 plt.xlim(0, 180)
-plt.ylabel('Angle Distribution (a.u.)', fontsize=22)
+plt.ylabel('Angle Distribution (a.u.)')
 plt.yticks([], [])
-plt.xticks(np.arange(0, 225, 45), fontsize=18)
+plt.xticks(np.arange(0, 225, 45))
 
 plt.legend(fontsize=22, loc='upper right', bbox_to_anchor=(1.05, 1.08))
 plt.tight_layout()
