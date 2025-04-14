@@ -51,16 +51,16 @@ labels = [labels[i] for i in valid_indices]
 similarity_kernel = np.dot(soap_vectors, soap_vectors.T)
 
 # Reduce to 2D using UMAP (compute once for all data points) - change the parameters as desired to see how this affects the plot
-umap_reducer = UMAP(metric='precomputed', min_dist=0.5, n_neighbors=20, n_components=2, random_state=42)
+umap_reducer = UMAP(metric='precomputed', min_dist=0.5, n_neighbors=10, n_components=2, random_state=42)
 reduced_data_umap = umap_reducer.fit_transform(similarity_kernel)
 
 # Map each label to a color
 label_colors = {
     "De novo exploration": "lightskyblue",
-    "High-T MD": "steelblue",
-    "Crystalline structures": "thistle",
-    "NVT melting": "orchid",
-    "Melt-quench NPT": "palevioletred",
+    "High-T MD": "sandybrown",
+    "Crystalline structures": "mediumpurple",
+    "NVT melting": "sandybrown",
+    "Melt-quench NPT": "sandybrown",
     "Crystalline-amorphous interfaces": "mediumpurple"
 }
 legend_labels = {v: k for k, v in label_colors.items()}
@@ -74,25 +74,23 @@ for iter_label in config_type_map.keys():
     mask = [label in selected_labels for label in labels]
     filtered_data = reduced_data_umap[mask]
     filtered_colors = [label_colors[label] for label in labels if label in selected_labels]
+    
+    ax = plt.gca()  # Get current axis
+    for spine in ax.spines.values():
+        spine.set_linewidth(1)  # Set axes thickness to 1 pt
 
     # Plot
-    plt.figure(figsize=(10, 8))
+    plt.figure(figsize=(8, 10))  # Set figure size in inches
     plt.scatter(filtered_data[:, 0], filtered_data[:, 1], c=filtered_colors, rasterized=True)
-    plt.xlim(-4, 8)
-    plt.ylim(-2, 10)
+    plt.xlim(-4.52, 6.28)
+    plt.ylim(2, 12.49)
     plt.xticks([], [])
     plt.yticks([], [])
-    
-    #uncomment these lines if you want to add labels and title
-    #plt.xlabel("UMAP Component 1")
-    #plt.ylabel("UMAP Component 2")
-    #plt.title(f"UMAP with {', '.join(selected_labels)}")
-    
-    # Create legend
-    handles = [plt.Line2D([0], [0], marker='o', color='w', label=legend_labels[color],
-                          markerfacecolor=color, markersize=10) for color in label_colors.values() if legend_labels[color] in selected_labels]
-    #include legend:
-    #plt.legend(handles=handles)
-    
-    plt.savefig(f"UMAP_{'_'.join(selected_labels)}-check.pdf")
+    print(min(filtered_data[:, 0]), max(filtered_data[:, 0]))
+    print(min(filtered_data[:, 1]), max(filtered_data[:, 1]))
+
+
+    plt.savefig(f"UMAP_{'_'.join(selected_labels)}.pdf", bbox_inches='tight')
     plt.close()
+
+
