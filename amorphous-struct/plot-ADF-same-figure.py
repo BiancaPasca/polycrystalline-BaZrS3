@@ -25,10 +25,10 @@ def read_norm_data(file_name):
     angles = np.array(angles)
     counts = np.array(counts)
     # Normalize counts
-    counts /= counts.max()  # Normalize to maximum value of 1
+    counts /= counts.max() 
     return angles, counts
 
-font = {'size'   : 22}
+font = {'size'   : 8}
 
 plt.rc('font', **font)
 
@@ -36,17 +36,18 @@ plt.rc('font', **font)
 crystal_angles, crystal_counts = read_norm_data(crystal_file)
 amorphous_angles, amorphous_counts = read_norm_data(amorphous_file)
 
-# Plot the Angle Distribution Function (ADF)
+# Start plotting ADF 
+
 fig, ax = plt.subplots(figsize=(8, 6))
 for axis in ['top', 'bottom', 'left', 'right']:
     ax.spines[axis].set_linewidth(2) 
 
-# Plot crystal phase
+# crystal phase
 ax.plot(crystal_angles, crystal_counts, label='Crystalline', color='red', linewidth=1.5)
 ax.fill_between(crystal_angles, crystal_counts, color='red', alpha=0.4)
 
 
-# Plot amorphous phase
+# amorphous phase
 ax.plot(amorphous_angles, amorphous_counts, label='Amorphous', color='red', linewidth=1.5, alpha=0.7)
 ax.fill_between(amorphous_angles, amorphous_counts, color='red', alpha=0.4)
 
@@ -80,7 +81,7 @@ plt.rcParams['mathtext.rm'] = 'Arial'
 plt.rcParams['mathtext.it'] = 'Arial:italic'
 plt.rcParams['mathtext.bf'] = 'Arial:bold'
 
-# Configure plot
+
 plt.xlabel('Bond Angle (°)', fontsize=22)
 plt.xlim(0, 180)
 plt.ylabel('Angle Distribution (a.u.)', fontsize=22)
