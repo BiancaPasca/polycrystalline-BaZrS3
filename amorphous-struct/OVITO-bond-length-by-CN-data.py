@@ -5,7 +5,7 @@ import statistics
 import numpy as np
 
 # Load a LAMMPS .data file and apply the CoordinationAnalysisModifier to compute coordination numbers.
-pipeline = import_file("/u/vld/magd5247/lammps_gap/ACE-iter5-4/no-high-E/BZS-2500K-80ps-10^14quench-1500K-15ps-300K-10^15quench.data")
+pipeline = import_file("/u/vld/magd5247/lammps_gap/ACE-iter5-4/no-high-E/BZS-amorphous-10000atoms-10^13quench.data")
 
 modifier = CoordinationAnalysisModifier(cutoff=3.1, number_of_bins=200)
 pipeline.modifiers.append(modifier)
