@@ -4,7 +4,7 @@ from matplotlib import rcParams
 
 # Read the text files for the crystalline and amorphous structure generated using OVIT-ADF.py
 crystal_file = '/u/vld/magd5247/Crystal-structures/python-files/bond_angles-amorphous-BaS-bonds.txt'
-amorphous_file = '/u/vld/magd5247/Crystal-structures/python-files/bond_angles-crystal-BaS-bonds-4p6.txt'
+amorphous_file = '/u/vld/magd5247/Crystal-structures/python-files/bond_angles-crystal-BaS-bonds-3p8cutoff.txt'
 
 
 
