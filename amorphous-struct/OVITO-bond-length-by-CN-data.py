@@ -57,10 +57,10 @@ for i in range(data.particles.count):
                 zr_bond_lengths.append(zr_s_distance)
         
         # Categorize the bond lengths and coordination numbers
-        elif zr_coord == 4:
+        if zr_coord == 4:
             bond_lengths_by_coord["4"].extend(zr_bond_lengths)
             coordination_counts["4"] += 1
-        if zr_coord == 5:
+        elif zr_coord == 5:
             bond_lengths_by_coord["5"].extend(zr_bond_lengths)
             coordination_counts["5"] += 1
         if zr_coord == 6:
