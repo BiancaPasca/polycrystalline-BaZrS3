@@ -6,7 +6,7 @@ from matplotlib import rcParams
 import matplotlib.font_manager
 
 # Read in the structures of the amorphous and crystalline phases (LAMMPS data files)
-amorphous_file = "/u/vld/magd5247/lammps_gap/ACE-iter5-4/no-high-E/BZS-2500K-80ps-10^14quench-1500K-15ps-300K-10^15quench.data"
+amorphous_file = "/u/vld/magd5247/lammps_gap/ACE-iter5-4/no-high-E/BZS-amorphous-10000atoms-10^14quench.data"
 crystalline_file = "/u/vld/magd5247/lammps_gap/ACE-iter5-4/no-high-E/BZS-cif-MP-10000atoms.data"  # Change this to your actual file
 
 # Load structures into OVITO pipeline
@@ -20,7 +20,7 @@ zr_s_cutoff = 3.1  # Adjust if necessary
 amorphous_data = amorphous_pipeline.compute()
 crystalline_data = crystalline_pipeline.compute()
 
-# Enable periodic boundary conditions
+# Set periodic boundary conditions
 amorphous_data.cell_.pbc = (True, True, True)
 crystalline_data.cell_.pbc = (True, True, True)
 
@@ -48,7 +48,7 @@ def compute_zr_coordination_percentages(data, zr_type_id, cutoff):
             coord_number = sum(1 for _ in neighbor_finder.find(i))  # Count neighbors
             zr_coordination.append(coord_number)
 
-    total_zr = len(zr_coordination)  # Total number of Zr atoms
+    total_zr = len(zr_coordination) 
     if total_zr == 0:
         return {5: 0, 6: 0, 7: 0}  # Avoid division by zero
 
@@ -106,9 +106,8 @@ plt.bar(x - bar_width/2, amorphous_values, width=bar_width, label="Amorphous", c
 plt.bar(x + bar_width/2, crystalline_values, width=bar_width, label="Crystalline", color="red", alpha=0.5)
 
 # Labels and formatting
-plt.xticks(x, [f"CN={c}" for c in categories], fontsize=20)
-plt.yticks(fontsize=18)
-plt.ylabel("Percentage (%)", fontsize=20)
+plt.xticks(x, [f"CN={c}" for c in categories])
+plt.ylabel("Percentage (%)")
 plt.legend(fontsize=20, bbox_to_anchor=(0.5, 1.07))  
 
 
