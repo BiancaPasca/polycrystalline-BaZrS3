@@ -6,7 +6,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Load a particle dataset, apply the modifier, and evaluate pipeline.
-pipeline = import_file("/u/vld/magd5247/lammps_gap/ACE-iter5-4/traj-BZS-relaxed-hard-sphere-1500K-50ps-300K-10-13quench.dump")
+pipeline = import_file("/u/vld/magd5247/lammps_gap/ACE-iter5-4/traj-BZS-relaxed-hard-sphere-10-13quench.dump")
 modifier = CoordinationAnalysisModifier(cutoff=3.1, number_of_bins=200)
 pipeline.modifiers.append(modifier)
 
