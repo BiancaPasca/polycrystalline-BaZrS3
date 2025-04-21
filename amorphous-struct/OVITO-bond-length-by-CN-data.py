@@ -63,7 +63,7 @@ for i in range(data.particles.count):
         elif zr_coord == 5:
             bond_lengths_by_coord["5"].extend(zr_bond_lengths)
             coordination_counts["5"] += 1
-        if zr_coord == 6:
+        elif zr_coord == 6:
             bond_lengths_by_coord["6"].extend(zr_bond_lengths)
             coordination_counts["6"] += 1
         elif zr_coord == 7:
