@@ -65,8 +65,7 @@ categories = [5, 6, 7]  # Coordination numbers of interest in the case of ZrSx p
 amorphous_values = [amorphous_percentages.get(c, 0) for c in categories]
 crystalline_values = [crystalline_percentages.get(c, 0) for c in categories]
 
-#optional: adjust font size and style of figure
-
+#Optional: adjust font size and style of figure for publication
 #rcParams['font.family'] = 'DeJavu Serif'
 #rcParams['font.serif'] = ['Arial']
 #plt.rcParams.update({
