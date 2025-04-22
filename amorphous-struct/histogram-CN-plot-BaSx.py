@@ -5,15 +5,9 @@ import matplotlib.pyplot as plt
 from matplotlib import rcParams
 import matplotlib.font_manager as font_manager
 
-# Load Arial font
-font_path = '/u/vld/magd5247/software/miniconda3_test/envs/ovito_env/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/Arial.ttf'
-font_manager.fontManager.addfont(font_path)
-prop = font_manager.FontProperties(fname=font_path, size=8)
-
-
-# File paths for amorphous and crystalline structures
+# File paths for amorphous and crystalline structures -- change to required files
 amorphous_file = "/u/vld/magd5247/lammps_gap/ACE-iter5-4/BZS-10000atoms-10^13quench-correct.data"
-crystalline_file = "/u/vld/magd5247/lammps_gap/ACE-iter5-4/no-high-E/BZS-cif-MP-10000atoms.data"  # Change this to your actual file
+crystalline_file = "/u/vld/magd5247/lammps_gap/ACE-iter5-4/no-high-E/BZS-cif-MP-10000atoms.data"  
 
 # Load structures
 amorphous_pipeline = import_file(amorphous_file)
@@ -78,14 +72,18 @@ def compute_zr_coordination_percentages(data, zr_type_id, cutoff):
 amorphous_percentages = compute_zr_coordination_percentages(amorphous_data, zr_type_id, zr_s_cutoff)
 crystalline_percentages = compute_zr_coordination_percentages(crystalline_data, zr_type_id, zr_s_cutoff)
 
-print(amorphous_percentages)
 
 # Prepare data for plotting
 categories = [5, 6, 7, 8, 9]  # Coordination numbers of interest
 amorphous_values = [amorphous_percentages.get(c, 0) for c in categories]
 crystalline_values = [crystalline_percentages.get(c, 0) for c in categories]
 
+# Load Arial font 
+font_path = '/u/vld/magd5247/software/miniconda3_test/envs/ovito_env/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/Arial.ttf'
+font_manager.fontManager.addfont(font_path)
+prop = font_manager.FontProperties(fname=font_path, size=8)
 
+# Optional settings for publication formatting (only works if Arial font is downloaded)
 #rcParams['font.family'] = 'DeJavu Serif'
 #rcParams['font.serif'] = ['Arial']
 #plt.rcParams.update({
@@ -115,6 +113,7 @@ crystalline_values = [crystalline_percentages.get(c, 0) for c in categories]
 #plt.rcParams['mathtext.it'] = 'Arial:italic'
 #plt.rcParams['mathtext.bf'] = 'Arial:bold'
 
+
 # Plot histogram comparing amorphous vs crystalline Zr coordination (percentages)
 bar_width = 0.4
 x = np.arange(len(categories))
@@ -130,17 +129,14 @@ plt.xlabel("Coordination Number", fontproperties=prop, fontsize=8,)
 ax.tick_params(axis='both', direction='out', width=0.65)
 plt.yticks(np.arange(0, 101, 20), fontproperties=prop, fontsize=6)  # Ticks at 0, 20, 40, 60, 80, 100%
 plt.ylabel("Percentage",fontproperties=prop, fontsize=8)
-
 plt.legend(
     prop=prop, frameon=False, handletextpad=0.3, borderpad=0.1, 
     loc='upper left', bbox_to_anchor=(0.02, 0.98)  # Fine-tune positioning
 )
-
-
-# Adjust subplot layout to push the plot downward
- # Leaves space at the top
 plt.tight_layout()
 
+# Save the plot and print out the amorphous percentages to check the exact values
+print(amorphous_percentages)
 plt.savefig("histogram-Ba-coordination-10^14quench.png", dpi=600)
 plt.show()
 
