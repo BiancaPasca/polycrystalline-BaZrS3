@@ -10,10 +10,10 @@ pipeline = import_file("/u/vld/magd5247/lammps_gap/ACE-iter5-4/no-high-E/BZS-amo
 modifier = CoordinationAnalysisModifier(cutoff=3.1, number_of_bins=200)
 pipeline.modifiers.append(modifier)
 
-# Helper function to compute distance considering PBC
+# Helper function to compute distance considering minimum image convention
 def compute_distance_with_pbc(pos1, pos2, cell):
     delta = pos1 - pos2
-    delta -= np.round(delta / cell.diagonal()) * cell.diagonal()  # Apply minimum image convention
+    delta -= np.round(delta / cell.diagonal()) * cell.diagonal()  
     return np.linalg.norm(delta)
 
 # Compute data for the static frame
@@ -23,7 +23,7 @@ particle_types = data.particles['Particle Type']
 positions = data.particles['Position']
 cell = data.cell_.matrix[:3, :3] 
 
-# Identify particle type IDs for Zr and S
+# Identify particle type IDs for the required atom types (this case, Zr and S)
 zr_type_id = None
 s_type_id = None
 for t in data.particles.particle_types.types:
@@ -36,7 +36,7 @@ for t in data.particles.particle_types.types:
 if zr_type_id is None or s_type_id is None:
     raise ValueError("Zr or S type not found in the dataset.")
 
-# Initialize variables for categorizing bond lengths
+# Store bond lengths by coordination numbers (initialise dictionary)
 bond_lengths_by_coord = { "4": [], "5": [], "6": [], "7": [] }
 coordination_counts = { "4": 0, "5": 0, "6": 0, "7" : 0}
 total_zr_atoms = 0
@@ -81,7 +81,7 @@ coordination_percentages = {
     key: (count / total_zr_atoms) * 100 for key, count in coordination_counts.items()
 }
 
-# Output the results
+# Print the results
 print("Average Zr-S bond lengths by coordination number:")
 for coord_category, avg_length in avg_bond_lengths_by_coord.items():
     print(f"Coordination {coord_category}: {avg_length:.3f}")
