@@ -13,8 +13,8 @@ crystalline_file = "/u/vld/magd5247/lammps_gap/ACE-iter5-4/no-high-E/BZS-cif-MP-
 amorphous_pipeline = import_file(amorphous_file)
 crystalline_pipeline = import_file(crystalline_file)
 
-# Define Zr-S cutoff (angstroms)
-zr_s_cutoff = 3.8  # Adjust if necessary
+# Define Ba-S cutoff (angstroms)
+ba_s_cutoff = 3.8  # Adjust if necessary
 
 # Compute data for both structures
 amorphous_data = amorphous_pipeline.compute()
@@ -36,12 +36,12 @@ for t in amorphous_data.particles.particle_types.types:
 if "Ba" not in type_ids:
     raise ValueError("Ba type not found in the dataset.")
 
-zr_type_id = type_ids["Ba"]
+ba_type_id = type_ids["Ba"]
 
-# Function to compute coordination percentages for Zr
-def compute_zr_coordination_percentages(data, zr_type_id, cutoff):
+# Function to compute coordination percentages for Ba
+def compute_ba_coordination_percentages(data, ba_type_id, cutoff):
     neighbor_finder = CutoffNeighborFinder(cutoff, data)
-    zr_coordination = []
+    ba_coordination = []
 
     particle_types = data.particles['Particle Type']
 
@@ -56,21 +56,21 @@ def compute_zr_coordination_percentages(data, zr_type_id, cutoff):
         raise ValueError("S type not found in the dataset.")
 
     for i in range(data.particles.count):
-        if particle_types[i] == zr_type_id:
+        if particle_types[i] == ba_type_id:
             coord_number = sum(1 for neigh in neighbor_finder.find(i) if particle_types[neigh.index] == s_type_id)
-            zr_coordination.append(coord_number)
+            ba_coordination.append(coord_number)
 
-    total_zr = len(zr_coordination)
-    if total_zr == 0:
+    total_ba = len(ba_coordination)
+    if total_ba == 0:
         return {c: 0 for c in range(2, 13)}
 
-    percentages = {c: round((zr_coordination.count(c) / total_zr) * 100, 1) for c in range(5, 10)}
+    percentages = {c: round((ba_coordination.count(c) / total_zr) * 100, 1) for c in range(5, 10)}
     return percentages
 
 
 # Get coordination statistics for both phases
-amorphous_percentages = compute_zr_coordination_percentages(amorphous_data, zr_type_id, zr_s_cutoff)
-crystalline_percentages = compute_zr_coordination_percentages(crystalline_data, zr_type_id, zr_s_cutoff)
+amorphous_percentages = compute_ba_coordination_percentages(amorphous_data, ba_type_id, ba_s_cutoff)
+crystalline_percentages = compute_ba_coordination_percentages(crystalline_data, ba_type_id, ba_s_cutoff)
 
 
 # Prepare data for plotting
