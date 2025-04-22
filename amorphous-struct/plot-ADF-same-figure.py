@@ -6,8 +6,6 @@ from matplotlib import rcParams
 crystal_file = '/u/vld/magd5247/Crystal-structures/python-files/bond_angles-amorphous-BaS-bonds-3p8cutoff.txt'
 amorphous_file = '/u/vld/magd5247/Crystal-structures/python-files/bond_angles-crystal-BaS-bonds-3p8cutoff.txt'
 
-
-
 # Function to read and normalize angle data
 def read_norm_data(file_name):
     angles = []
@@ -27,31 +25,26 @@ def read_norm_data(file_name):
     # Normalize counts
     counts /= counts.max() 
     return angles, counts
-
-font = {'size'   : 8}
-
-plt.rc('font', **font)
-
+    
 # Read and normalize data for crystal and amorphous phases
 crystal_angles, crystal_counts = read_norm_data(crystal_file)
 amorphous_angles, amorphous_counts = read_norm_data(amorphous_file)
 
 # Start plotting ADF 
-
 fig, ax = plt.subplots(figsize=(8, 6))
 for axis in ['top', 'bottom', 'left', 'right']:
     ax.spines[axis].set_linewidth(2) 
 
-# crystal phase
+# Crystal phase
 ax.plot(crystal_angles, crystal_counts, label='Crystalline', color='red', linewidth=1.5)
 ax.fill_between(crystal_angles, crystal_counts, color='red', alpha=0.4)
 
 
-# amorphous phase
+# Amorphous phase
 ax.plot(amorphous_angles, amorphous_counts, label='Amorphous', color='red', linewidth=1.5, alpha=0.7)
 ax.fill_between(amorphous_angles, amorphous_counts, color='red', alpha=0.4)
 
-#set figure font settings for publication
+# Set figure font settings for publication
 rcParams['font.family'] = 'DeJavu Serif'
 rcParams['font.serif'] = ['Arial']
 plt.rcParams.update({
@@ -81,15 +74,15 @@ plt.rcParams['mathtext.rm'] = 'Arial'
 plt.rcParams['mathtext.it'] = 'Arial:italic'
 plt.rcParams['mathtext.bf'] = 'Arial:bold'
 
-
+#Plot layout
 plt.xlabel('Bond Angle (°)')
 plt.xlim(0, 180)
 plt.ylabel('Angle Distribution (a.u.)')
 plt.yticks([], [])
 plt.xticks(np.arange(0, 225, 45))
-
 plt.legend(fontsize=22, loc='upper right', bbox_to_anchor=(1.05, 1.08))
 plt.tight_layout()
 
+#Save plot
 plt.savefig('ADF-Crystal-vs-Amorphous-BaS-bonds.png')
 plt.show()
