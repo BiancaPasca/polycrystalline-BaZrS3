@@ -2,4 +2,4 @@
 
 This repository provides access to the trained ACE models, the dataset used for training, and the analysis code supporting the results presented in the paper.
 
-Publication currently in preparation.
+Publication available at https://doi.org/10.1039/D5TA04536C
